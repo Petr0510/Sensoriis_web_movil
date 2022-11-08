@@ -5,5 +5,5 @@
 Aplicación Móvil
 
 <p align="center">
-  <img src="sensoriis.PNG" width="300" title="hover text">
+  <img src="sensoriis1.PNG" width="300" title="hover text">
 </p>
