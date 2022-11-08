@@ -1,0 +1,4 @@
+----- Comandos para la parte del modelo, ejecutado desde la Raspberry 
+sudo pip3 install boto3
+sudo pip3 install awscli
+aws configure ----- se ingresa usuario IAM
