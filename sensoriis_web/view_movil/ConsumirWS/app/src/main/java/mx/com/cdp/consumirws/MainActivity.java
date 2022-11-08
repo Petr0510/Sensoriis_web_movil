@@ -9,21 +9,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText txtid, txtTemp, txtHum;
+    EditText txtid, txtTemp, txtHum, txtback, txtforward;
     TextView textView, textView2, textView3;
-    Button btnEnviar;
+    Button btnEnviar, btnMover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,13 @@ public class MainActivity extends AppCompatActivity {
         txtid = findViewById(R.id.txtid);
         txtTemp = findViewById(R.id.txtTemp);
         txtHum = findViewById(R.id.txtHum);
+        txtback = findViewById(R.id.txtback);
+        txtforward = findViewById(R.id.txtforward);
         btnEnviar = findViewById(R.id.btnEnviar);
         textView = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
         textView3 = findViewById(R.id.textView3);
+        btnMover = findViewById(R.id.btnMover);
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,5 +79,33 @@ public class MainActivity extends AppCompatActivity {
         });
         Volley.newRequestQueue(this).add(postResquest);
     }
+
+
+    private void enviarWs(final String back, final String forward) {
+
+        String url = "https://my-json-server.typicode.com/Petr0510/test_sensor/sensores";
+
+        StringRequest postResquest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(MainActivity.this, "RESULTADO POST = " + response, Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error", error.getMessage());
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("back", back);
+                params.put("forward", forward);
+
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(postResquest);
+    }
+
 
 }
